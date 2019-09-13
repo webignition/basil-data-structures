@@ -41,11 +41,16 @@ class StepTest extends \PHPUnit\Framework\TestCase
                 ]),
                 'expectedActionStrings' => [],
             ],
-            'non-empty' => [
+            'empty and non-string actions are ignored' => [
                 'stepDataStructure' => new Step([
                     Step::KEY_ACTIONS => [
+                        0,
+                        '',
+                        true,
                         'click ".selector"',
+                        '  ',
                         'set ".input" to "value"',
+                        "\t",
                     ],
                 ]),
                 'expectedActionStrings' => [
@@ -83,10 +88,15 @@ class StepTest extends \PHPUnit\Framework\TestCase
                 ]),
                 'expectedAssertionStrings' => [],
             ],
-            'non-empty' => [
+            'empty assertions are ignored' => [
                 'stepDataStructure' => new Step([
                     Step::KEY_ASSERTIONS => [
+                        '',
+                        0,
+                        true,
                         '".selector" exists',
+                        ' ',
+                        "\t",
                     ],
                 ]),
                 'expectedAssertionStrings' => [

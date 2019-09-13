@@ -12,12 +12,12 @@ class Step extends AbstractDataStructure
 
     public function getActions(): array
     {
-        return $this->getArray(self::KEY_ACTIONS);
+        return $this->getNonEmptyStrings(self::KEY_ACTIONS);
     }
 
     public function getAssertions(): array
     {
-        return $this->getArray(self::KEY_ASSERTIONS);
+        return $this->getNonEmptyStrings(self::KEY_ASSERTIONS);
     }
 
     public function getImportName(): string
@@ -38,5 +38,14 @@ class Step extends AbstractDataStructure
     public function getElements(): array
     {
         return $this->getArray(self::KEY_ELEMENTS);
+    }
+
+    private function getNonEmptyStrings(string $key): array
+    {
+        return array_values(
+            array_filter($this->getArray($key), function ($value) {
+                return is_string($value) && trim($value) !== '';
+            })
+        );
     }
 }
