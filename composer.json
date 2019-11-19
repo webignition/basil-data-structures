@@ -1,8 +1,8 @@
 {
-    "name": "webignition/php-basil-data-structures",
+    "name": "webignition/basil-data-structures",
     "description": "Data structures for basil language",
     "keywords": [],
-    "homepage": "https://github.com/webignition/php-basil-data-structures",
+    "homepage": "https://github.com/webignition/basil-data-structures",
     "type": "library",
     "license": "MIT",
     "authors": [
