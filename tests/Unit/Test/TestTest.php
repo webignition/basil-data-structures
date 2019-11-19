@@ -1,5 +1,4 @@
 <?php
-/** @noinspection PhpDocSignatureInspection */
 
 namespace webignition\BasilDataStructure\Tests\Unit\Test;
 
