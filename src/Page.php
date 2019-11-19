@@ -6,8 +6,8 @@ namespace webignition\BasilDataStructure;
 
 class Page extends AbstractDataStructure
 {
-    const KEY_URL = 'url';
-    const KEY_ELEMENTS = 'elements';
+    public const KEY_URL = 'url';
+    public const KEY_ELEMENTS = 'elements';
 
     public function getUrl(): string
     {

@@ -6,11 +6,11 @@ namespace webignition\BasilDataStructure;
 
 class Step extends AbstractDataStructure
 {
-    const KEY_ACTIONS = 'actions';
-    const KEY_ASSERTIONS = 'assertions';
-    const KEY_USE = 'use';
-    const KEY_DATA = 'data';
-    const KEY_ELEMENTS = 'elements';
+    public const KEY_ACTIONS = 'actions';
+    public const KEY_ASSERTIONS = 'assertions';
+    public const KEY_USE = 'use';
+    public const KEY_DATA = 'data';
+    public const KEY_ELEMENTS = 'elements';
 
     public function getActions(): array
     {
