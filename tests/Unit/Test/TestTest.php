@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace webignition\BasilDataStructure\Tests\Unit\Test;
 
 use webignition\BasilDataStructure\PathResolver;
