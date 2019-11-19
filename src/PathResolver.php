@@ -1,11 +1,13 @@
 <?php
 
+declare(strict_types=1);
+
 namespace webignition\BasilDataStructure;
 
 class PathResolver
 {
-    const CURRENT_DIRECTORY = '.';
-    const PREVIOUS_DIRECTORY = '..';
+    private const CURRENT_DIRECTORY = '.';
+    private const PREVIOUS_DIRECTORY = '..';
 
     public static function create(): PathResolver
     {

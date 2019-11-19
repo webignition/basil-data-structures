@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace webignition\BasilDataStructure\Test;
 
 use webignition\BasilDataStructure\AbstractDataStructure;
@@ -8,8 +10,8 @@ use webignition\BasilDataStructure\Step;
 
 class Test extends AbstractDataStructure
 {
-    const KEY_CONFIGURATION = 'config';
-    const KEY_IMPORTS = 'imports';
+    public const KEY_CONFIGURATION = 'config';
+    public const KEY_IMPORTS = 'imports';
 
     private $path = '';
     private $pathResolver;
