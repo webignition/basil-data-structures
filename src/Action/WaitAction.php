@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace webignition\BasilDataStructure\Action;
 
-class WaitAction extends AbstractAction
+class WaitAction extends Action
 {
     public const TYPE = 'wait';
 

@@ -4,9 +4,9 @@ declare(strict_types=1);
 
 namespace webignition\BasilDataStructure\Tests\Unit\Action;
 
-use webignition\BasilDataStructure\Action\SetAction;
+use webignition\BasilDataStructure\Action\InputAction;
 
-class SetActionTest extends \PHPUnit\Framework\TestCase
+class InputActionTest extends \PHPUnit\Framework\TestCase
 {
     public function testConstruct()
     {
@@ -15,10 +15,10 @@ class SetActionTest extends \PHPUnit\Framework\TestCase
         $identifier = '.selector';
         $value = 'value';
 
-        $action = new SetAction($source, $arguments, $identifier, $value);
+        $action = new InputAction($source, $arguments, $identifier, $value);
 
         $this->assertSame($source, $action->getSource());
-        $this->assertSame(SetAction::TYPE, $action->getType());
+        $this->assertSame(InputAction::TYPE, $action->getType());
         $this->assertSame($arguments, $action->getArguments());
         $this->assertSame($identifier, $action->getIdentifier());
         $this->assertSame($value, $action->getValue());

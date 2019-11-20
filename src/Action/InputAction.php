@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace webignition\BasilDataStructure\Action;
 
-class SetAction extends AbstractInteractionAction
+class InputAction extends InteractionAction
 {
     public const TYPE = 'set';
 

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace webignition\BasilDataStructure\Action;
 
-abstract class AbstractInteractionAction extends AbstractAction
+class InteractionAction extends Action
 {
     private $identifier;
 
