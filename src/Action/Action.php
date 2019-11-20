@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace webignition\BasilDataStructure\Action;
 
-abstract class AbstractAction implements ActionInterface
+class Action implements ActionInterface
 {
     private $source;
     private $type;
