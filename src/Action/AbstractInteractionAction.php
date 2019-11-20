@@ -8,9 +8,9 @@ abstract class AbstractInteractionAction extends AbstractAction
 {
     private $identifier;
 
-    public function __construct(string $type, string $arguments, string $identifier)
+    public function __construct(string $source, string $type, string $arguments, string $identifier)
     {
-        parent::__construct($type, $arguments);
+        parent::__construct($source, $type, $arguments);
 
         $this->identifier = $identifier;
     }

@@ -10,9 +10,9 @@ class WaitAction extends AbstractAction
 
     private $duration;
 
-    public function __construct(string $duration)
+    public function __construct(string $source, string $duration)
     {
-        parent::__construct(self::TYPE, $duration);
+        parent::__construct($source, self::TYPE, $duration);
 
         $this->duration = $duration;
     }
