@@ -10,7 +10,7 @@ class Action implements ActionInterface
     private $type;
     private $arguments;
 
-    public function __construct(string $source, string $type, ?string $arguments = null)
+    public function __construct(string $source, ?string $type, ?string $arguments = null)
     {
         $this->source = $source;
         $this->type = $type;
@@ -22,7 +22,7 @@ class Action implements ActionInterface
         return $this->source;
     }
 
-    public function getType(): string
+    public function getType(): ?string
     {
         return $this->type;
     }
