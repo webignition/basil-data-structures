@@ -6,13 +6,20 @@ namespace webignition\BasilDataStructure\Action;
 
 abstract class AbstractAction
 {
+    private $source;
     private $type;
     private $arguments;
 
-    public function __construct(string $type, ?string $arguments = null)
+    public function __construct(string $source, string $type, ?string $arguments = null)
     {
+        $this->source = $source;
         $this->type = $type;
         $this->arguments = $arguments;
+    }
+
+    public function getSource(): string
+    {
+        return $this->source;
     }
 
     public function getType(): string

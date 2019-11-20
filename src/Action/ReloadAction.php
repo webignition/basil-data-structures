@@ -8,8 +8,8 @@ class ReloadAction extends AbstractAction
 {
     public const TYPE = 'reload';
 
-    public function __construct(?string $arguments = null)
+    public function __construct(string $source, ?string $arguments = null)
     {
-        parent::__construct(self::TYPE, $arguments);
+        parent::__construct($source, self::TYPE, $arguments);
     }
 }

@@ -10,9 +10,9 @@ class SetAction extends AbstractInteractionAction
 
     private $value;
 
-    public function __construct(string $arguments, string $identifier, string $value)
+    public function __construct(string $source, string $arguments, string $identifier, string $value)
     {
-        parent::__construct(self::TYPE, $arguments, $identifier);
+        parent::__construct($source, self::TYPE, $arguments, $identifier);
 
         $this->value = $value;
     }

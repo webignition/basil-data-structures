@@ -10,11 +10,13 @@ class WaitForActionTest extends \PHPUnit\Framework\TestCase
 {
     public function testConstruct()
     {
+        $source = 'wait-for ".selector"';
         $arguments = '".selector"';
         $identifier = '.selector';
 
-        $action = new WaitForAction($arguments, $identifier);
+        $action = new WaitForAction($source, $arguments, $identifier);
 
+        $this->assertSame($source, $action->getSource());
         $this->assertSame(WaitForAction::TYPE, $action->getType());
         $this->assertSame($arguments, $action->getArguments());
         $this->assertSame($identifier, $action->getIdentifier());
