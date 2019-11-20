@@ -7,7 +7,7 @@ namespace webignition\BasilDataStructure;
 interface AssertionInterface
 {
     public function getSource(): string;
-    public function getIdentifier(): string;
-    public function getComparison(): string;
-    public function getValue(): string;
+    public function getIdentifier(): ?string;
+    public function getComparison(): ?string;
+    public function getValue(): ?string;
 }

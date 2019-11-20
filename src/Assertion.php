@@ -11,7 +11,7 @@ class Assertion implements AssertionInterface
     private $comparison;
     private $value;
 
-    public function __construct(string $source, string $identifier, string $comparison, string $value)
+    public function __construct(string $source, ?string $identifier, ?string $comparison, ?string $value = null)
     {
         $this->source = $source;
         $this->identifier = $identifier;
@@ -24,17 +24,17 @@ class Assertion implements AssertionInterface
         return $this->source;
     }
 
-    public function getIdentifier(): string
+    public function getIdentifier(): ?string
     {
         return $this->identifier;
     }
 
-    public function getComparison(): string
+    public function getComparison(): ?string
     {
         return $this->comparison;
     }
 
-    public function getValue(): string
+    public function getValue(): ?string
     {
         return $this->value;
     }
