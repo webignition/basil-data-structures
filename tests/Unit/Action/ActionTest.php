@@ -11,7 +11,7 @@ class ActionTest extends \PHPUnit\Framework\TestCase
     /**
      * @dataProvider createDataProvider
      */
-    public function testCreate(string $source, string $type, ?string $arguments)
+    public function testCreate(string $source, ?string $type, ?string $arguments)
     {
         $action = new Action($source, $type, $arguments);
 
@@ -23,6 +23,11 @@ class ActionTest extends \PHPUnit\Framework\TestCase
     public function createDataProvider(): array
     {
         return [
+            'empty' => [
+                'source' => '',
+                'type' => null,
+                'arguments' => null,
+            ],
             'without arguments' => [
                 'source' => 'reload',
                 'type' => 'reload',
