@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace webignition\BasilDataStructure;
 
-class Assertion
+class Assertion implements AssertionInterface
 {
     private $source;
     private $identifier;
