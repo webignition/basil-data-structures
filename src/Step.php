@@ -8,12 +8,6 @@ use webignition\BasilDataStructure\Action\ActionInterface;
 
 class Step
 {
-//    public const KEY_ACTIONS = 'actions';
-//    public const KEY_ASSERTIONS = 'assertions';
-//    public const KEY_USE = 'use';
-//    public const KEY_DATA = 'data';
-//    public const KEY_ELEMENTS = 'elements';
-
     private $actions = [];
     private $assertions = [];
     private $importName = '';
