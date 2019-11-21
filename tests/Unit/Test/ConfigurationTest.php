@@ -19,39 +19,13 @@ class ConfigurationTest extends \PHPUnit\Framework\TestCase
     public function getBrowserDataProvider(): array
     {
         return [
-            'not present' => [
-                'configurationDataStructure' => new Configuration([]),
+            'empty' => [
+                'configurationDataStructure' => new Configuration('', ''),
                 'expectedBrowser' => '',
             ],
-            'scalar; integer' => [
-                'configurationDataStructure' => new Configuration([
-                    Configuration::KEY_BROWSER => 100,
-                ]),
-                'expectedBrowser' => '100',
-            ],
-            'scalar; float' => [
-                'configurationDataStructure' => new Configuration([
-                    Configuration::KEY_BROWSER => 3.14,
-                ]),
-                'expectedBrowser' => '3.14',
-            ],
-            'scalar; string' => [
-                'configurationDataStructure' => new Configuration([
-                    Configuration::KEY_BROWSER => 'chrome',
-                ]),
+            'non-empty' => [
+                'configurationDataStructure' => new Configuration('chrome', ''),
                 'expectedBrowser' => 'chrome',
-            ],
-            'scalar; bool, true' => [
-                'configurationDataStructure' => new Configuration([
-                    Configuration::KEY_BROWSER => true,
-                ]),
-                'expectedBrowser' => '1',
-            ],
-            'scalar; bool, false' => [
-                'configurationDataStructure' => new Configuration([
-                    Configuration::KEY_BROWSER => false,
-                ]),
-                'expectedBrowser' => '',
             ],
         ];
     }
@@ -67,39 +41,13 @@ class ConfigurationTest extends \PHPUnit\Framework\TestCase
     public function getUrlDataProvider(): array
     {
         return [
-            'not present' => [
-                'configurationDataStructure' => new Configuration([]),
+            'empty' => [
+                'configurationDataStructure' => new Configuration('', ''),
                 'expectedUrl' => '',
             ],
-            'scalar; integer' => [
-                'configurationDataStructure' => new Configuration([
-                    Configuration::KEY_URL => 100,
-                ]),
-                'expectedUrl' => '100',
-            ],
-            'scalar; float' => [
-                'configurationDataStructure' => new Configuration([
-                    Configuration::KEY_URL => 3.14,
-                ]),
-                'expectedUrl' => '3.14',
-            ],
-            'scalar; string' => [
-                'configurationDataStructure' => new Configuration([
-                    Configuration::KEY_URL => 'http://example.com/',
-                ]),
+            'non-empty' => [
+                'configurationDataStructure' => new Configuration('', 'http://example.com/'),
                 'expectedUrl' => 'http://example.com/',
-            ],
-            'scalar; bool, true' => [
-                'configurationDataStructure' => new Configuration([
-                    Configuration::KEY_URL => true,
-                ]),
-                'expectedUrl' => '1',
-            ],
-            'scalar; bool, false' => [
-                'configurationDataStructure' => new Configuration([
-                    Configuration::KEY_URL => false,
-                ]),
-                'expectedUrl' => '',
             ],
         ];
     }
