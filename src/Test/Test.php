@@ -6,20 +6,20 @@ namespace webignition\BasilDataStructure\Test;
 
 class Test
 {
-    private $name = '';
+    private $path = '';
     private $configuration;
     private $imports;
 
-    public function __construct(string $name, Configuration $configuration, Imports $imports)
+    public function __construct(string $path, Configuration $configuration, Imports $imports)
     {
-        $this->name = $name;
+        $this->path = $path;
         $this->configuration = $configuration;
         $this->imports = $imports;
     }
 
-    public function getName(): string
+    public function getPath(): string
     {
-        return $this->name;
+        return $this->path;
     }
 
     public function getConfiguration(): Configuration
