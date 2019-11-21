@@ -4,17 +4,26 @@ declare(strict_types=1);
 
 namespace webignition\BasilDataStructure\Test;
 
+use webignition\BasilDataStructure\Step;
+
 class Test
 {
     private $path = '';
     private $configuration;
     private $imports;
+    private $steps = [];
 
-    public function __construct(string $path, Configuration $configuration)
+    public function __construct(string $path, Configuration $configuration, array $steps)
     {
         $this->path = $path;
         $this->configuration = $configuration;
         $this->imports = new Imports();
+
+        foreach ($steps as $step) {
+            if ($step instanceof Step) {
+                $this->steps[] = $step;
+            }
+        }
     }
 
     public function getPath(): string
@@ -38,5 +47,13 @@ class Test
         $new->imports = $imports;
 
         return $new;
+    }
+
+    /**
+     * @return Step[]
+     */
+    public function getSteps(): array
+    {
+        return $this->steps;
     }
 }
