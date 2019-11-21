@@ -12,13 +12,13 @@ class TestTest extends \PHPUnit\Framework\TestCase
 {
     public function testCreate()
     {
-        $name = 'name';
+        $path = 'test.yml';
         $configuration = new Configuration('', '');
         $imports = new Imports();
 
-        $test = new Test($name, $configuration, $imports);
+        $test = new Test($path, $configuration, $imports);
 
-        $this->assertSame($name, $test->getName());
+        $this->assertSame($path, $test->getPath());
         $this->assertSame($configuration, $test->getConfiguration());
         $this->assertSame($imports, $test->getImports());
     }
