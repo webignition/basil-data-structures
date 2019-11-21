@@ -111,38 +111,4 @@ class StepTest extends \PHPUnit\Framework\TestCase
         $step = $step->withElements($elements);
         $this->assertSame($elements, $step->getElements());
     }
-//
-//    /**
-//     * @dataProvider getElementsDataProvider
-//     */
-//    public function testGetElements(Step $stepDataStructure, array $expectedElementStrings)
-//    {
-//        $this->assertSame($expectedElementStrings, $stepDataStructure->getElements());
-//    }
-//
-//    public function getElementsDataProvider(): array
-//    {
-//        return [
-//            'not present' => [
-//                'stepDataStructure' => new Step([]),
-//                'expectedElementStrings' => [],
-//            ],
-//            'not an array' => [
-//                'stepDataStructure' => new Step([
-//                    Step::KEY_ELEMENTS => 'elements',
-//                ]),
-//                'expectedElementStrings' => [],
-//            ],
-//            'is an array' => [
-//                'stepDataStructure' => new Step([
-//                    Step::KEY_ELEMENTS => [
-//                        'heading' => 'page_import_name.elements.heading',
-//                    ],
-//                ]),
-//                'expectedElementStrings' => [
-//                    'heading' => 'page_import_name.elements.heading',
-//                ],
-//            ],
-//        ];
-//    }
 }
