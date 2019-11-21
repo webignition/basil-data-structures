@@ -4,18 +4,24 @@ declare(strict_types=1);
 
 namespace webignition\BasilDataStructure;
 
-class Page extends AbstractDataStructure
+class Page
 {
-    public const KEY_URL = 'url';
-    public const KEY_ELEMENTS = 'elements';
+    private $url;
+    private $elements;
+
+    public function __construct(string $url, array $elements = [])
+    {
+        $this->url = $url;
+        $this->elements = $elements;
+    }
 
     public function getUrl(): string
     {
-        return $this->getString(self::KEY_URL);
+        return $this->url;
     }
 
     public function getElements(): array
     {
-        return $this->getArray(self::KEY_ELEMENTS);
+        return $this->elements;
     }
 }
