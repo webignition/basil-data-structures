@@ -4,50 +4,103 @@ declare(strict_types=1);
 
 namespace webignition\BasilDataStructure;
 
-class Step extends AbstractDataStructure
-{
-    public const KEY_ACTIONS = 'actions';
-    public const KEY_ASSERTIONS = 'assertions';
-    public const KEY_USE = 'use';
-    public const KEY_DATA = 'data';
-    public const KEY_ELEMENTS = 'elements';
+use webignition\BasilDataStructure\Action\ActionInterface;
 
-    public function getActions(): array
+class Step
+{
+//    public const KEY_ACTIONS = 'actions';
+//    public const KEY_ASSERTIONS = 'assertions';
+//    public const KEY_USE = 'use';
+//    public const KEY_DATA = 'data';
+//    public const KEY_ELEMENTS = 'elements';
+
+    private $actions = [];
+    private $assertions = [];
+    private $importName = '';
+    private $dataImportName = '';
+    private $data = [];
+    private $elements = [];
+
+    public function __construct(array $actions, array $assertions)
     {
-        return $this->getNonEmptyStrings(self::KEY_ACTIONS);
+        foreach ($actions as $action) {
+            if ($action instanceof ActionInterface) {
+                $this->actions[] = $action;
+            }
+        }
+
+        foreach ($assertions as $assertion) {
+            if ($assertion instanceof AssertionInterface) {
+                $this->assertions[] = $assertion;
+            }
+        }
     }
 
+    /**
+     * @return ActionInterface[]
+     */
+    public function getActions(): array
+    {
+        return $this->actions;
+    }
+
+    /**
+     * @return AssertionInterface[]
+     */
     public function getAssertions(): array
     {
-        return $this->getNonEmptyStrings(self::KEY_ASSERTIONS);
+        return $this->assertions;
     }
 
     public function getImportName(): string
     {
-        return $this->getString(self::KEY_USE);
+        return $this->importName;
     }
 
-    public function getDataArray(): array
+    public function withImportName(string $importName): Step
     {
-        return $this->getArray(self::KEY_DATA);
+        $new = clone $this;
+        $new->importName = $importName;
+
+        return $new;
     }
 
     public function getDataImportName(): string
     {
-        return $this->getString(self::KEY_DATA);
+        return $this->dataImportName;
+    }
+
+    public function withDataImportName(string $dataImportName): Step
+    {
+        $new = clone $this;
+        $new->dataImportName = $dataImportName;
+
+        return $new;
+    }
+
+    public function getDataArray(): array
+    {
+        return $this->data;
+    }
+
+    public function withDataArray(array $data): Step
+    {
+        $new = clone $this;
+        $new->data = $data;
+
+        return $new;
     }
 
     public function getElements(): array
     {
-        return $this->getArray(self::KEY_ELEMENTS);
+        return $this->elements;
     }
 
-    private function getNonEmptyStrings(string $key): array
+    public function withElements(array $elements): Step
     {
-        return array_values(
-            array_filter($this->getArray($key), function ($value) {
-                return is_string($value) && trim($value) !== '';
-            })
-        );
+        $new = clone $this;
+        $new->elements = $elements;
+
+        return $new;
     }
 }

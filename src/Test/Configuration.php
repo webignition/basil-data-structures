@@ -4,20 +4,24 @@ declare(strict_types=1);
 
 namespace webignition\BasilDataStructure\Test;
 
-use webignition\BasilDataStructure\AbstractDataStructure;
-
-class Configuration extends AbstractDataStructure
+class Configuration
 {
-    public const KEY_BROWSER = 'browser';
-    public const KEY_URL = 'url';
+    private $browser;
+    private $url;
+
+    public function __construct(string $browser, string $url)
+    {
+        $this->browser = $browser;
+        $this->url = $url;
+    }
 
     public function getBrowser(): string
     {
-        return $this->getString(self::KEY_BROWSER);
+        return $this->browser;
     }
 
     public function getUrl(): string
     {
-        return $this->getString(self::KEY_URL);
+        return $this->url;
     }
 }

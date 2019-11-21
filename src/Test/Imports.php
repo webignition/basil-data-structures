@@ -4,41 +4,55 @@ declare(strict_types=1);
 
 namespace webignition\BasilDataStructure\Test;
 
-use webignition\BasilDataStructure\AbstractDataStructure;
-use webignition\BasilDataStructure\ImportList;
-use webignition\BasilDataStructure\PathResolver;
-
-class Imports extends AbstractDataStructure
+class Imports
 {
-    public const KEY_STEPS = 'steps';
-    public const KEY_PAGES = 'pages';
-    public const KEY_DATA_PROVIDERS = 'data_providers';
-
-    private $stepPaths;
-    private $pagePaths;
-    private $dataProviderPaths;
-
-    public function __construct(PathResolver $pathResolver, string $basePath, array $data)
-    {
-        parent::__construct($data);
-
-        $this->stepPaths = new ImportList($pathResolver, $basePath, $this->getArray(self::KEY_STEPS));
-        $this->pagePaths = new ImportList($pathResolver, $basePath, $this->getArray(self::KEY_PAGES));
-        $this->dataProviderPaths = new ImportList($pathResolver, $basePath, $this->getArray(self::KEY_DATA_PROVIDERS));
-    }
+    private $stepPaths = [];
+    private $pagePaths = [];
+    private $dataProviderPaths = [];
 
     public function getStepPaths(): array
     {
-        return $this->stepPaths->getPaths();
+        return $this->stepPaths;
     }
 
     public function getPagePaths(): array
     {
-        return $this->pagePaths->getPaths();
+        return $this->pagePaths;
     }
 
     public function getDataProviderPaths(): array
     {
-        return $this->dataProviderPaths->getPaths();
+        return $this->dataProviderPaths;
+    }
+
+    public function withStepPaths(array $paths): Imports
+    {
+        $new = clone $this;
+        $new->stepPaths = $this->filterPaths($paths);
+
+        return $new;
+    }
+
+    public function withPagePaths(array $paths): Imports
+    {
+        $new = clone $this;
+        $new->pagePaths = $this->filterPaths($paths);
+
+        return $new;
+    }
+
+    public function withDataProviderPaths(array $paths): Imports
+    {
+        $new = clone $this;
+        $new->dataProviderPaths = $this->filterPaths($paths);
+
+        return $new;
+    }
+
+    private function filterPaths(array $paths): array
+    {
+        return array_filter($paths, function ($path) {
+            return is_string($path) && '' !== trim($path);
+        });
     }
 }
