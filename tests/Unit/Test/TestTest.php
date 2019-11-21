@@ -14,12 +14,25 @@ class TestTest extends \PHPUnit\Framework\TestCase
     {
         $path = 'test.yml';
         $configuration = new Configuration('', '');
-        $imports = new Imports();
 
-        $test = new Test($path, $configuration, $imports);
+        $test = new Test($path, $configuration);
 
         $this->assertSame($path, $test->getPath());
         $this->assertSame($configuration, $test->getConfiguration());
-        $this->assertSame($imports, $test->getImports());
+        $this->assertEquals(new Imports(), $test->getImports());
+    }
+
+    public function testWithImports()
+    {
+        $test = new Test('test.yml', new Configuration('', ''));
+        $this->assertEquals(new Imports(), $test->getImports());
+
+        $nonEmptyImports = (new Imports())
+            ->withStepPaths([
+                'step_import_name' => '../step.yml',
+            ]);
+
+        $test = $test->withImports($nonEmptyImports);
+        $this->assertEquals($nonEmptyImports, $test->getImports());
     }
 }

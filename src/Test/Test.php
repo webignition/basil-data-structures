@@ -10,11 +10,11 @@ class Test
     private $configuration;
     private $imports;
 
-    public function __construct(string $path, Configuration $configuration, Imports $imports)
+    public function __construct(string $path, Configuration $configuration)
     {
         $this->path = $path;
         $this->configuration = $configuration;
-        $this->imports = $imports;
+        $this->imports = new Imports();
     }
 
     public function getPath(): string
@@ -27,8 +27,16 @@ class Test
         return $this->configuration;
     }
 
-    public function getImports(): Imports
+    public function getImports(): ?Imports
     {
         return $this->imports;
+    }
+
+    public function withImports(Imports $imports): Test
+    {
+        $new = clone $this;
+        $new->imports = $imports;
+
+        return $new;
     }
 }
