@@ -4,242 +4,145 @@ declare(strict_types=1);
 
 namespace webignition\BasilDataStructure\Tests\Unit;
 
+use webignition\BasilDataStructure\Action\InteractionAction;
+use webignition\BasilDataStructure\Action\WaitAction;
+use webignition\BasilDataStructure\Assertion;
 use webignition\BasilDataStructure\Step;
 
 class StepTest extends \PHPUnit\Framework\TestCase
 {
-    public function testCreate()
-    {
-        $step = new Step([]);
-
-        $this->assertInstanceOf(Step::class, $step);
-    }
-
     /**
-     * @dataProvider getActionsDataProvider
+     * @dataProvider createDataProvider
      */
-    public function testGetActions(Step $stepDataStructure, array $expectedActionStrings)
+    public function testCreate(array $actions, array $assertions, array $expectedActions, array $expectedAssertions)
     {
-        $this->assertSame($expectedActionStrings, $stepDataStructure->getActions());
+        $step = new Step($actions, $assertions);
+
+        $this->assertEquals($expectedActions, $step->getActions());
+        $this->assertEquals($expectedAssertions, $step->getAssertions());
     }
 
-    public function getActionsDataProvider(): array
+    public function createDataProvider(): array
     {
         return [
-            'not present' => [
-                'stepDataStructure' => new Step([]),
-                'expectedActionStrings' => [],
-            ],
-            'not an array' => [
-                'stepDataStructure' => new Step([
-                    Step::KEY_ACTIONS => 'actions',
-                ]),
-                'expectedActionStrings' => [],
-            ],
             'empty' => [
-                'stepDataStructure' => new Step([
-                    Step::KEY_ACTIONS => [],
-                ]),
-                'expectedActionStrings' => [],
+                'actions' => [],
+                'assertions' => [],
+                'expectedActions' => [],
+                'expectedAssertions' => [],
             ],
-            'empty and non-string actions are ignored' => [
-                'stepDataStructure' => new Step([
-                    Step::KEY_ACTIONS => [
-                        0,
-                        '',
-                        true,
-                        'click ".selector"',
-                        '  ',
-                        'set ".input" to "value"',
-                        "\t",
-                    ],
-                ]),
-                'expectedActionStrings' => [
-                    'click ".selector"',
-                    'set ".input" to "value"',
+            'all invalid' => [
+                'actions' => [
+                    1,
+                    true,
+                    'string',
+                ],
+                'assertions' => [
+                    1,
+                    true,
+                    'string',
+                ],
+                'expectedActions' => [],
+                'expectedAssertions' => [],
+            ],
+            'all valid' => [
+                'actions' => [
+                    new WaitAction('wait 1', '1'),
+                    new InteractionAction('click ".selector"', 'click', '".selector"', '".selector"'),
+                ],
+                'assertions' => [
+                    new Assertion('$page.title is "Example"', '$page.title', 'is', '"Example"'),
+                    new Assertion('".selector" exists', '".selector"', 'exists'),
+                ],
+                'expectedActions' => [
+                    new WaitAction('wait 1', '1'),
+                    new InteractionAction('click ".selector"', 'click', '".selector"', '".selector"'),
+                ],
+                'expectedAssertions' => [
+                    new Assertion('$page.title is "Example"', '$page.title', 'is', '"Example"'),
+                    new Assertion('".selector" exists', '".selector"', 'exists'),
                 ],
             ],
         ];
     }
 
-    /**
-     * @dataProvider getAssertionsDataProvider
-     */
-    public function testGetAssertions(Step $stepDataStructure, array $expectedAssertionStrings)
+    public function testGetWithImportName()
     {
-        $this->assertSame($expectedAssertionStrings, $stepDataStructure->getAssertions());
+        $step = new Step([], []);
+        $this->assertSame('', $step->getImportName());
+
+        $step = $step->withImportName('import_name');
+        $this->assertSame('import_name', $step->getImportName());
     }
 
-    public function getAssertionsDataProvider(): array
+    public function testGetWithDataImportName()
     {
-        return [
-            'not present' => [
-                'stepDataStructure' => new Step([]),
-                'expectedAssertionStrings' => [],
-            ],
-            'not an array' => [
-                'stepDataStructure' => new Step([
-                    Step::KEY_ASSERTIONS => 'actions',
-                ]),
-                'expectedAssertionStrings' => [],
-            ],
-            'empty' => [
-                'stepDataStructure' => new Step([
-                    Step::KEY_ASSERTIONS => [],
-                ]),
-                'expectedAssertionStrings' => [],
-            ],
-            'empty assertions are ignored' => [
-                'stepDataStructure' => new Step([
-                    Step::KEY_ASSERTIONS => [
-                        '',
-                        0,
-                        true,
-                        '".selector" exists',
-                        ' ',
-                        "\t",
-                    ],
-                ]),
-                'expectedAssertionStrings' => [
-                    '".selector" exists',
-                ],
+        $step = new Step([], []);
+        $this->assertSame('', $step->getDataImportName());
+
+        $step = $step->withDataImportName('data_import_name');
+        $this->assertSame('data_import_name', $step->getDataImportName());
+    }
+
+    public function testGetWithDataArray()
+    {
+        $step = new Step([], []);
+        $this->assertSame([], $step->getDataArray());
+
+        $data = [
+            'set1' => [
+                'key' => 'value',
             ],
         ];
+
+        $step = $step->withDataArray($data);
+        $this->assertSame($data, $step->getDataArray());
     }
 
-    /**
-     * @dataProvider getImportNameDataProvider
-     */
-    public function testGetImportName(Step $stepDataStructure, string $expectedImportName)
+    public function testGetWithElements()
     {
-        $this->assertSame($expectedImportName, $stepDataStructure->getImportName());
-    }
+        $step = new Step([], []);
+        $this->assertSame([], $step->getElements());
 
-    public function getImportNameDataProvider(): array
-    {
-        return [
-            'not present' => [
-                'stepDataStructure' => new Step([]),
-                'expectedImportName' => '',
-            ],
-            'not a string' => [
-                'stepDataStructure' => new Step([
-                    Step::KEY_USE => 123,
-                ]),
-                'expectedImportName' => '123',
-            ],
-            'is a string' => [
-                'stepDataStructure' => new Step([
-                    Step::KEY_USE => 'step_import_name',
-                ]),
-                'expectedImportName' => 'step_import_name',
-            ],
+        $elements = [
+            'heading' => 'page_import_name.elements.heading',
         ];
-    }
 
-    /**
-     * @dataProvider getDataArrayDataProvider
-     */
-    public function testGetDataArray(Step $stepDataStructure, array $expectedDataArray)
-    {
-        $this->assertSame($expectedDataArray, $stepDataStructure->getDataArray());
+        $step = $step->withElements($elements);
+        $this->assertSame($elements, $step->getElements());
     }
-
-    public function getDataArrayDataProvider(): array
-    {
-        return [
-            'not present' => [
-                'stepDataStructure' => new Step([]),
-                'expectedDataArray' => [],
-            ],
-            'not an array' => [
-                'stepDataStructure' => new Step([
-                    Step::KEY_DATA => 'data_provider_import_name',
-                ]),
-                'expectedDataArray' => [],
-            ],
-            'is an array' => [
-                'stepDataStructure' => new Step([
-                    Step::KEY_DATA => [
-                        'set1' => [
-                            'key' => 'value',
-                        ],
-                    ],
-                ]),
-                'expectedDataArray' => [
-                    'set1' => [
-                        'key' => 'value',
-                    ],
-                ],
-            ],
-        ];
-    }
-
-    /**
-     * @dataProvider getDataImportNameDataProvider
-     */
-    public function testGetDataImportName(Step $stepDataStructure, string $expectedDataImportName)
-    {
-        $this->assertSame($expectedDataImportName, $stepDataStructure->getDataImportName());
-    }
-
-    public function getDataImportNameDataProvider(): array
-    {
-        return [
-            'not present' => [
-                'stepDataStructure' => new Step([]),
-                'expectedDataImportName' => '',
-            ],
-            'not a string' => [
-                'stepDataStructure' => new Step([
-                    Step::KEY_DATA => [
-                        'set1' => [
-                            'key' => 'value',
-                        ],
-                    ],
-                ]),
-                'expectedDataImportName' => '',
-            ],
-            'is a string' => [
-                'stepDataStructure' => new Step([
-                    Step::KEY_DATA => 'data_provider_import_name',
-                ]),
-                'expectedDataImportName' => 'data_provider_import_name',
-            ],
-        ];
-    }
-
-    /**
-     * @dataProvider getElementsDataProvider
-     */
-    public function testGetElements(Step $stepDataStructure, array $expectedElementStrings)
-    {
-        $this->assertSame($expectedElementStrings, $stepDataStructure->getElements());
-    }
-
-    public function getElementsDataProvider(): array
-    {
-        return [
-            'not present' => [
-                'stepDataStructure' => new Step([]),
-                'expectedElementStrings' => [],
-            ],
-            'not an array' => [
-                'stepDataStructure' => new Step([
-                    Step::KEY_ELEMENTS => 'elements',
-                ]),
-                'expectedElementStrings' => [],
-            ],
-            'is an array' => [
-                'stepDataStructure' => new Step([
-                    Step::KEY_ELEMENTS => [
-                        'heading' => 'page_import_name.elements.heading',
-                    ],
-                ]),
-                'expectedElementStrings' => [
-                    'heading' => 'page_import_name.elements.heading',
-                ],
-            ],
-        ];
-    }
+//
+//    /**
+//     * @dataProvider getElementsDataProvider
+//     */
+//    public function testGetElements(Step $stepDataStructure, array $expectedElementStrings)
+//    {
+//        $this->assertSame($expectedElementStrings, $stepDataStructure->getElements());
+//    }
+//
+//    public function getElementsDataProvider(): array
+//    {
+//        return [
+//            'not present' => [
+//                'stepDataStructure' => new Step([]),
+//                'expectedElementStrings' => [],
+//            ],
+//            'not an array' => [
+//                'stepDataStructure' => new Step([
+//                    Step::KEY_ELEMENTS => 'elements',
+//                ]),
+//                'expectedElementStrings' => [],
+//            ],
+//            'is an array' => [
+//                'stepDataStructure' => new Step([
+//                    Step::KEY_ELEMENTS => [
+//                        'heading' => 'page_import_name.elements.heading',
+//                    ],
+//                ]),
+//                'expectedElementStrings' => [
+//                    'heading' => 'page_import_name.elements.heading',
+//                ],
+//            ],
+//        ];
+//    }
 }
