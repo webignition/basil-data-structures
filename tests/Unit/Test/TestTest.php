@@ -50,16 +50,32 @@ class TestTest extends \PHPUnit\Framework\TestCase
                             new Assertion('".selector" exists', '".selector"', 'exists'),
                         ]
                     ),
-                ],
-                'expectedSteps' => [
-                    new Step(
+                    'step name' => new Step(
                         [
                             new WaitAction('wait 1', '1'),
                         ],
                         [
                             new Assertion('".selector" exists', '".selector"', 'exists'),
                         ]
-                    )
+                    ),
+                ],
+                'expectedSteps' => [
+                    '3' => new Step(
+                        [
+                            new WaitAction('wait 1', '1'),
+                        ],
+                        [
+                            new Assertion('".selector" exists', '".selector"', 'exists'),
+                        ]
+                    ),
+                    'step name' => new Step(
+                        [
+                            new WaitAction('wait 1', '1'),
+                        ],
+                        [
+                            new Assertion('".selector" exists', '".selector"', 'exists'),
+                        ]
+                    ),
                 ],
             ],
         ];
