@@ -19,9 +19,9 @@ class Test
         $this->configuration = $configuration;
         $this->imports = new Imports();
 
-        foreach ($steps as $step) {
+        foreach ($steps as $stepName => $step) {
             if ($step instanceof Step) {
-                $this->steps[] = $step;
+                $this->steps[(string) $stepName] = $step;
             }
         }
     }
