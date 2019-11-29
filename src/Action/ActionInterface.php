@@ -8,6 +8,6 @@ use webignition\BasilDataStructure\StatementInterface;
 
 interface ActionInterface extends StatementInterface
 {
-    public function getType(): ?string;
-    public function getArguments(): ?string;
+    public function getType(): string;
+    public function getArguments(): string;
 }
