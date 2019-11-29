@@ -10,14 +10,14 @@ class InputAction extends InteractionAction
 
     private $value;
 
-    public function __construct(string $source, string $arguments, string $identifier, ?string $value)
+    public function __construct(string $source, string $arguments, string $identifier, string $value)
     {
         parent::__construct($source, self::TYPE, $arguments, $identifier);
 
         $this->value = $value;
     }
 
-    public function getValue(): ?string
+    public function getValue(): string
     {
         return $this->value;
     }
