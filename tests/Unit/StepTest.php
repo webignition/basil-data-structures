@@ -7,6 +7,7 @@ namespace webignition\BasilDataStructure\Tests\Unit;
 use webignition\BasilDataStructure\Action\InteractionAction;
 use webignition\BasilDataStructure\Action\WaitAction;
 use webignition\BasilDataStructure\Assertion;
+use webignition\BasilDataStructure\DataSetCollection;
 use webignition\BasilDataStructure\Step;
 
 class StepTest extends \PHPUnit\Framework\TestCase
@@ -84,19 +85,19 @@ class StepTest extends \PHPUnit\Framework\TestCase
         $this->assertSame('data_import_name', $step->getDataImportName());
     }
 
-    public function testGetWithDataArray()
+    public function testGetDataWithData()
     {
         $step = new Step([], []);
-        $this->assertSame([], $step->getDataArray());
+        $this->assertEquals(new DataSetCollection([]), $step->getData());
 
-        $data = [
+        $data = new DataSetCollection([
             'set1' => [
                 'key' => 'value',
             ],
-        ];
+        ]);
 
-        $step = $step->withDataArray($data);
-        $this->assertSame($data, $step->getDataArray());
+        $step = $step->withData($data);
+        $this->assertSame($data, $step->getData());
     }
 
     public function testGetWithElements()
