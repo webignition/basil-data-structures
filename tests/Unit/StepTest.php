@@ -6,7 +6,8 @@ namespace webignition\BasilDataStructure\Tests\Unit;
 
 use webignition\BasilDataStructure\Action\InteractionAction;
 use webignition\BasilDataStructure\Action\WaitAction;
-use webignition\BasilDataStructure\Assertion;
+use webignition\BasilDataStructure\Assertion\Assertion;
+use webignition\BasilDataStructure\Assertion\ComparisonAssertion;
 use webignition\BasilDataStructure\DataSetCollection;
 use webignition\BasilDataStructure\Step;
 
@@ -52,7 +53,7 @@ class StepTest extends \PHPUnit\Framework\TestCase
                     new InteractionAction('click ".selector"', 'click', '".selector"', '".selector"'),
                 ],
                 'assertions' => [
-                    new Assertion('$page.title is "Example"', '$page.title', 'is', '"Example"'),
+                    new ComparisonAssertion('$page.title is "Example"', '$page.title', 'is', '"Example"'),
                     new Assertion('".selector" exists', '".selector"', 'exists'),
                 ],
                 'expectedActions' => [
@@ -60,7 +61,7 @@ class StepTest extends \PHPUnit\Framework\TestCase
                     new InteractionAction('click ".selector"', 'click', '".selector"', '".selector"'),
                 ],
                 'expectedAssertions' => [
-                    new Assertion('$page.title is "Example"', '$page.title', 'is', '"Example"'),
+                    new ComparisonAssertion('$page.title is "Example"', '$page.title', 'is', '"Example"'),
                     new Assertion('".selector" exists', '".selector"', 'exists'),
                 ],
             ],
