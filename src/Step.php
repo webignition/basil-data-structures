@@ -12,7 +12,7 @@ class Step
     private $assertions = [];
     private $importName = '';
     private $dataImportName = '';
-    private $data = [];
+    private $data;
     private $elements = [];
 
     public function __construct(array $actions, array $assertions)
@@ -28,6 +28,8 @@ class Step
                 $this->assertions[] = $assertion;
             }
         }
+
+        $this->data = new DataSetCollection([]);
     }
 
     /**
@@ -72,12 +74,12 @@ class Step
         return $new;
     }
 
-    public function getDataArray(): array
+    public function getData(): DataSetCollection
     {
         return $this->data;
     }
 
-    public function withDataArray(array $data): Step
+    public function withData(DataSetCollection $data): Step
     {
         $new = clone $this;
         $new->data = $data;
