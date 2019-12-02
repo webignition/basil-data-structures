@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace webignition\BasilDataStructure;
 
 use webignition\BasilDataStructure\Action\ActionInterface;
+use webignition\BasilDataStructure\Assertion\AssertionInterface;
 
 class Step
 {

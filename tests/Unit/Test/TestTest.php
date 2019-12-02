@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace webignition\BasilDataStructure\Tests\Unit\Test;
 
 use webignition\BasilDataStructure\Action\WaitAction;
-use webignition\BasilDataStructure\Assertion;
+use webignition\BasilDataStructure\Assertion\Assertion;
 use webignition\BasilDataStructure\Step;
 use webignition\BasilDataStructure\Test\Configuration;
 use webignition\BasilDataStructure\Test\Imports;
